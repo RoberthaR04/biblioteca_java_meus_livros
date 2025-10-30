@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${livro.titulo}">Detalhes do Livro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .book-cover {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body style="background-color: #f8f9fa;">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+    <div class="container">
+        <a th:href="@{/livros}" class="navbar-brand text-decoration-none text-dark">
+            <i class="bi bi-arrow-left"></i> MEUS LIVROS
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4 p-md-5">
+            <div class="row g-5">
+                <div class="col-md-4 text-center">
+                    <img th:src="${livro.urlImagem}" th:alt="${livro.titulo}" class="book-cover">
+                </div>
+
+                <div class="col-md-8">
+                    <h1 class="display-5" th:text="${livro.titulo}">Título do Livro</h1>
+                    <h3 class="text-muted fw-light mb-3" th:text="${livro.autor}">Autor</h3>
+
+                    <hr class="my-4">
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Gênero</dt>
+                        <dd class="col-sm-9" th:text="${livro.genero ?: 'Não informado'}">Gênero</dd>
+
+                        <dt class="col-sm-3">Notas</dt>
+                        <dd class="col-sm-9">
+                            <p th:text="${livro.notas ?: 'Nenhuma nota.'}" style="white-space: pre-wrap;"></p>
+                        </dd>
+                    </dl>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex gap-2">
+                        <a th:href="@{/livros/editar/{id}(id=${livro.id})}" class="btn btn-primary">
+                            <i class="bi bi-pencil-fill"></i> Editar
+                        </a>
+                        <a th:href="@{/livros/excluir/{id}(id=${livro.id})}" class="btn btn-outline-danger"
+                           onclick="return confirm('Tem certeza que deseja excluir este livro?');">
+                            <i class="bi bi-trash-fill"></i> Excluir
+                        </a>
+                        <a th:href="@{/livros}" class="btn btn-outline-secondary ms-auto">
+                            Voltar para a Lista
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center text-muted py-4 mt-5">
+    <p>&copy; 2025 - Biblioteca Meus Livros</p>
+</footer>
+
+</body>
+</html>

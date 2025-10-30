@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca Meus Livros</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    /* Estilo para garantir que as imagens dos cards tenham a mesma altura */
+    .card-img-top {
+        width: 100%;
+        height: 400px; /* Altura fixa */
+        object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    }
+    body { background-color: #f8f9fa; }
+    .navbar-brand { font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+  <div class="container">
+    <a class="navbar-brand" th:href="@{/livros}">
+      <i class="bi bi-book"></i>
+      BIBLIOTECA MEUS LIVROS
+    </a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Meus Livros</h2>
+    <a th:href="@{/livros/novo}" class="btn btn-primary">
+      <i class="bi bi-plus-circle-fill"></i> Cadastrar Novo Livro
+    </a>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+    <div class="col" th:each="livro : ${livros}">
+      <div class="card h-100 shadow-sm border-0">
+        <img th:src="${livro.urlImagem}" class="card-img-top" th:alt="${livro.titulo}">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${livro.titulo}">Título do Livro</h5>
+          <p class="card-text text-muted" th:text="${livro.autor}">Autor do Livro</p>
+        </div>
+        <div class="card-footer bg-white border-0 p-3">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a th:href="@{/livros/{id}(id=${livro.id})}" class="btn btn-outline-secondary btn-sm" title="Visualizar">
+              <i class="bi bi-eye"></i>
+            </a>
+            <a th:href="@{/livros/editar/{id}(id=${livro.id})}" class="btn btn-outline-primary btn-sm" title="Editar">
+              <i class="bi bi-pencil-fill"></i>
+            </a>
+            <a th:href="@{/livros/excluir/{id}(id=${livro.id})}" class="btn btn-outline-danger btn-sm" title="Excluir"
+               onclick="return confirm('Tem certeza que deseja excluir este livro?');">
+              <i class="bi bi-trash-fill"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="text-center text-muted py-4 mt-5">
+  <p>&copy; 2025 - Biblioteca Meus Livros</p>
+</footer>
+
+</body>
+</html>
